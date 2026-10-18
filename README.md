@@ -1,4 +1,4 @@
-# ⚽ KICKDIARY 26 - Athletic Career OS
+# KICKDIARY 26
 > **Platform Web Berbasis Kecerdasan Buatan (AI) untuk Mengubah Rekam Jejak Sepakbola Menjadi Narasi Perjalanan Karir**
 
 Proyek Tugas Besar Mata Kuliah **Implementasi dan Pengujian Perangkat Lunak (IPPL B)**  
@@ -7,7 +7,7 @@ Program Studi: **Informatika**
 
 ---
 
-## 📌 1. Ringkasan Eksekutif & Milestone Capaian UTS
+##  1. Ringkasan Eksekutif & Milestone Capaian UTS
 
 Berdasarkan ketentuan Ujian Tengah Semester (UTS), prototype dituntut untuk menyelesaikan **minimal 30% dari total fitur esensial**. 
 
@@ -30,7 +30,7 @@ Dokumen *Software Requirements Specification* (SRS) mendefinisikan total **27 Us
 
 ---
 
-## 🏗️ 2. Arsitektur & Teknologi (Tech Stack)
+##  2. Arsitektur & Teknologi (Tech Stack)
 
 Sistem dirancang mengacu pada spesifikasi **Software Design Document (SDD) Bab III & IV**:
 
@@ -51,7 +51,7 @@ Sistem dirancang mengacu pada spesifikasi **Software Design Document (SDD) Bab I
 
 ---
 
-## 📂 3. Struktur Direktori Proyek
+##  3. Struktur Direktori Proyek
 
 ```text
 KICKDIARY IPPL/
@@ -85,7 +85,7 @@ KICKDIARY IPPL/
 
 ---
 
-## 🚀 4. Panduan Menjalankan Aplikasi
+##  4. Panduan Menjalankan Aplikasi
 
 ### Opsi A: Menjalankan Secara Lokal (Python)
 
@@ -114,7 +114,7 @@ KICKDIARY IPPL/
    ```
 
 5. Buka browser dan akses antarmuka web di:  
-   👉 **`http://localhost:8000`**  
+    **`http://localhost:8000`**  
    *(Dokumentasi interaktif Swagger API dapat diakses di: `http://localhost:8000/docs`)*
 
 ---
@@ -129,7 +129,7 @@ Aplikasi backend FastAPI dan basis data PostgreSQL 15 akan terorkestrasi secara 
 
 ---
 
-## 🧪 5. Laporan Pengujian Otomatis (IPPL Automated Testing)
+##  5. Laporan Pengujian Otomatis (IPPL Automated Testing)
 
 Pengujian perangkat lunak dilakukan secara bertahap (*Unit & Integration Testing*) menggunakan **`pytest`** dengan basis data memori mandiri (*in-memory*) agar tidak merusak data operasional.
 
@@ -170,7 +170,7 @@ tests/test_matches_story.py::test_tc_nfr_007_story_persisted_before_display PASS
 
 ---
 
-## 🗺️ 6. Rencana Pengembangan Pasca-UTS (Roadmap Sprint 5–7)
+##  6. Rencana Pengembangan Pasca-UTS (Roadmap Sprint 5–7)
 
 Sisa Use Case (~55%) dijadwalkan pada siklus sprint berikutnya sesuai dokumen perencanaan Agile Scrum:
 * **Sprint 5**: Integrasi Webhook Payment Gateway Midtrans (`UC-007`, `UC-008`), Ekspor Narasi ke PDF (`UC-024`), dan Salin Link Publik (`UC-025`).
