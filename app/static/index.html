@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html class="dark" lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>KICKDIARY 26 - Athletic Career OS</title>
+  
+  <!-- Fonts: Bebas Neue & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#0f131c",
+            "surface-dim": "#0f131c",
+            "surface-bright": "#353943",
+            "surface-container-lowest": "#0a0e17",
+            "surface-container-low": "#181b25",
+            "surface-container": "#1c1f29",
+            "surface-container-high": "#262a34",
+            "surface-container-highest": "#31353f",
+            "primary": "#ffc665",
+            "primary-container": "#e5a93c",
+            "secondary": "#4edea3",
+            "secondary-container": "#00a572",
+            "tertiary": "#94d7ff",
+            "on-surface": "#dfe2ef",
+            "on-surface-variant": "#d4c4b0",
+            "background": "#0f131c",
+          },
+          fontFamily: {
+            headline: ["Bebas Neue", "sans-serif"],
+            sans: ["Montserrat", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #0a0e17;
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(229,169,60,0.12), transparent 70%),
+        radial-gradient(ellipse 60% 40% at 50% 100%, rgba(78,222,163,0.06), transparent 60%),
+        url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=2000&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      color: #dfe2ef;
+    }
+
+    .fifa-card {
+      background: rgba(24, 27, 37, 0.78);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+      transition: all 0.25s ease;
+    }
+
+    .fifa-card:hover {
+      border-color: rgba(229, 169, 60, 0.35);
+      box-shadow: 0 0 25px rgba(229, 169, 60, 0.15);
+    }
+
+    .fifa-input {
+      background: rgba(10, 14, 23, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      transition: all 0.2s ease;
+    }
+
+    .fifa-input:focus {
+      outline: none;
+      border-color: #e5a93c;
+      box-shadow: 0 0 12px rgba(229, 169, 60, 0.3);
+    }
+
+    ::-webkit-scrollbar { display: none; }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen relative overflow-x-hidden selection:bg-primary-container selection:text-slate-950">
+
+  <!-- ========================================================================= -->
+  <!-- 1. TOP HEADER & BROADCAST RIBBON (FIFA 17 AUTHENTIC STYLE)                -->
+  <!-- ========================================================================= -->
+  <header id="main-header" class="hidden sticky top-0 z-40 bg-surface/85 backdrop-blur-xl border-b border-white/10 px-6 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
+    <div class="max-w-[1600px] mx-auto flex items-center justify-between gap-4">
+      
+      <!-- Logo Branding -->
+      <div class="flex items-center gap-3">
+        <div class="h-8 px-2 bg-primary-container flex items-center justify-center text-slate-950 font-headline text-2xl tracking-wider transform -skew-x-12 shadow-[0_0_15px_rgba(229,169,60,0.4)]">
+          KD26
+        </div>
+        <div class="flex flex-col">
+          <span class="font-headline text-2xl tracking-wider text-primary leading-none">KICKDIARY</span>
+          <span class="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">ATHLETIC CAREER OS</span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs (Multi-View FIFA Style) -->
+      <nav class="flex items-center gap-1 bg-surface-container-lowest/80 p-1.5 rounded-lg border border-white/5">
+        <button onclick="switchTab('home')" id="tab-btn-home" class="nav-tab font-headline text-lg uppercase px-5 py-1.5 transition-all bg-primary-container text-slate-950 shadow-[0_0_15px_rgba(229,169,60,0.4)]">
+          HOME
+        </button>
+        <button onclick="switchTab('custom-player')" id="tab-btn-custom-player" class="nav-tab font-headline text-lg uppercase px-5 py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all">
+          CUSTOM PLAYER
+        </button>
+        <button onclick="switchTab('story-vault')" id="tab-btn-story-vault" class="nav-tab font-headline text-lg uppercase px-5 py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all">
+          STORY VAULT
+        </button>
+        <button onclick="switchTab('profile')" id="tab-btn-profile" class="nav-tab font-headline text-lg uppercase px-5 py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all">
+          MY PROFILE
+        </button>
+      </nav>
+
+      <!-- User Tier & Action -->
+      <div class="flex items-center gap-3">
+        <div class="hidden md:flex items-center bg-surface-container-lowest/90 px-3 py-1 border border-white/5">
+          <span class="bg-primary/20 text-primary font-bold text-[11px] px-2 py-0.5 tracking-wider uppercase" id="nav-tier-badge">FREE TIER</span>
+          <button onclick="showRoadmapModal('Sistem Langganan Berbayar & Payment Gateway')" class="ml-2 bg-primary-container hover:bg-primary text-slate-950 font-headline text-base tracking-wider px-2.5 py-0.5 transition uppercase font-bold">
+            UPGRADE
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2 pl-3 border-l border-white/10">
+          <div id="nav-user-avatar" class="w-8 h-8 rounded-full bg-surface-container-high border border-primary/40 flex items-center justify-center font-bold text-xs text-primary uppercase shadow-[0_0_8px_rgba(255,198,101,0.3)]">
+            U
+          </div>
+          <span id="nav-user-name" class="hidden lg:inline text-xs font-bold text-on-surface uppercase max-w-[130px] truncate">Pemain</span>
+          <button onclick="confirmLogout()" title="Keluar dari sesi" class="p-1.5 rounded text-on-surface-variant hover:text-rose-400 hover:bg-rose-500/10 transition">
+            <span class="material-symbols-outlined text-[18px]">logout</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Broadcast Telemetry Line -->
+  <div id="telemetry-bar" class="hidden w-full bg-surface-container-lowest/90 px-6 py-1.5 border-b border-white/5 text-[11px] text-on-surface-variant font-semibold">
+    <div class="max-w-[1600px] mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="w-2 h-2 bg-primary transform -skew-x-12 inline-block"></span>
+        <span class="tracking-widest uppercase text-primary font-bold">AI MATCHDAY CENTRAL</span>
+        <span class="text-white/20">|</span>
+        <span class="text-secondary flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> ENGINE ACTIVE
+        </span>
+      </div>
+      <span class="uppercase tracking-wider text-slate-400">MODE 2: CUSTOM PLAYER (AMATIR)</span>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ========================================================================= -->
+  <!-- 2. CONTAINER UTAMA                                                        -->
+  <!-- ========================================================================= -->
+  <main class="flex-1 max-w-[1600px] w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col justify-center">
+
+    <!-- ======================================================================= -->
+    <!-- VIEW: AUTHENTICATION (LOGIN & REGISTRASI)                               -->
+    <!-- ======================================================================= -->
+    <section id="view-auth" class="w-full max-w-md mx-auto my-auto fifa-card rounded-2xl p-7 sm:p-8 relative overflow-hidden border border-white/10">
+      <div class="text-center mb-6">
+        <div class="h-10 w-24 bg-primary-container flex items-center justify-center text-slate-950 font-headline text-3xl tracking-wider transform -skew-x-12 mx-auto mb-3 shadow-[0_0_20px_rgba(229,169,60,0.5)] font-bold">
+          KD26
+        </div>
+        <h1 class="font-headline text-3xl tracking-wider text-white">KICK<span class="text-primary">DIARY</span></h1>
+        <p class="text-xs text-on-surface-variant mt-1">Ubah Data Pertandingan Menjadi Narasi Juara</p>
+      </div>
+
+      <!-- Auth Tabs -->
+      <div class="flex bg-surface-container-lowest p-1 mb-6 border border-white/5">
+        <button id="auth-tab-login" onclick="setAuthMode('login')" class="flex-1 py-1.5 font-headline text-base tracking-wider transition bg-primary-container text-slate-950 font-bold">
+          MASUK
+        </button>
+        <button id="auth-tab-register" onclick="setAuthMode('register')" class="flex-1 py-1.5 font-headline text-base tracking-wider transition text-on-surface-variant hover:text-white">
+          DAFTAR AKUN
+        </button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="form-login" onsubmit="handleLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Email</label>
+          <input type="email" id="login-email" required placeholder="nama@email.com" class="w-full px-3.5 py-2.5 fifa-input text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Password</label>
+          <input type="password" id="login-password" required placeholder="••••••••" class="w-full px-3.5 py-2.5 fifa-input text-sm" />
+        </div>
+        <button type="submit" id="btn-login-submit" class="w-full py-3 bg-primary-container hover:bg-primary text-slate-950 font-headline text-xl tracking-wider transition uppercase shadow-[0_0_20px_rgba(229,169,60,0.4)] font-bold mt-2">
+          MASUK KE SISTEM
+        </button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="form-register" onsubmit="handleRegister(event)" class="space-y-3 hidden">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Nama Lengkap</label>
+          <input type="text" id="reg-fullname" required placeholder="Dimas Raharjo" class="w-full px-3.5 py-2 fifa-input text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Email</label>
+          <input type="email" id="reg-email" required placeholder="nama@email.com" class="w-full px-3.5 py-2 fifa-input text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Password (Minimal 8 Karakter)</label>
+          <input type="password" id="reg-password" required minlength="8" placeholder="••••••••" class="w-full px-3.5 py-2 fifa-input text-sm" />
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Posisi Bermain</label>
+            <select id="reg-position" class="w-full px-3 py-2 fifa-input text-xs">
+              <option value="Striker">Striker</option>
+              <option value="Winger">Winger</option>
+              <option value="Midfielder">Midfielder</option>
+              <option value="Defender">Defender</option>
+              <option value="Goalkeeper">Goalkeeper</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Negara</label>
+            <input type="text" id="reg-country" value="Indonesia" class="w-full px-3 py-2 fifa-input text-xs" />
+          </div>
+        </div>
+        <button type="submit" id="btn-reg-submit" class="w-full py-3 bg-primary-container hover:bg-primary text-slate-950 font-headline text-xl tracking-wider transition uppercase shadow-[0_0_20px_rgba(229,169,60,0.4)] font-bold mt-3">
+          BUAT AKUN BARU
+        </button>
+      </form>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 1: HOME (BENTO GRID MODULAR KHAS FIFA 17)                          -->
+    <!-- ======================================================================= -->
+    <section id="view-home" class="hidden space-y-6">
+      
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+
+        <!-- TILE 1: MATCH STORY AI (col-span-7) -->
+        <div class="xl:col-span-7 fifa-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden">
+          <div>
+            <!-- Banner Bar -->
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <span class="bg-primary text-slate-950 font-bold text-[10px] px-2.5 py-0.5 tracking-widest uppercase transform -skew-x-12">
+                  LAST MATCHDAY
+                </span>
+                <span class="bg-surface-container-highest text-tertiary font-bold text-[10px] px-2 py-0.5 uppercase tracking-wider">
+                  AI NARRATIVE
+                </span>
+              </div>
+              <span id="home-match-date" class="text-xs font-semibold text-on-surface-variant">Belum ada laga</span>
+            </div>
+
+            <!-- Title -->
+            <h1 class="font-headline text-4xl sm:text-5xl text-white tracking-wide uppercase italic mb-4">
+              MATCH STORY <span class="text-primary not-italic">AI</span>
+            </h1>
+
+            <!-- FIFA Broadcast Clash Scorecard -->
+            <div class="bg-surface-container-lowest/90 p-5 rounded-xl border border-white/5 mb-5 flex items-center justify-between gap-4">
+              <div class="flex-1 min-w-0">
+                <span class="text-[10px] uppercase tracking-widest text-secondary font-bold">TIM ANDA</span>
+                <h3 id="home-team-name" class="font-headline text-3xl uppercase text-white truncate leading-none mt-1">TIM ANDA</h3>
+              </div>
+              <div class="flex flex-col items-center">
+
+                <div class="bg-surface-container-high px-5 py-2 shadow-inner border border-white/5">
+                  <span id="home-score-display" class="font-headline text-4xl tracking-widest text-primary font-bold">0 : 0</span>
+                </div>
+                <span class="mt-1 bg-secondary/15 text-secondary text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider">
+                  FT (90')
+                </span>
+              </div>
+              <div class="flex-1 min-w-0 text-right">
+                <span class="text-[10px] uppercase tracking-widest text-on-surface-variant/70 font-bold">LAWAN</span>
+                <h3 id="home-opponent-name" class="font-headline text-3xl uppercase text-on-surface-variant truncate leading-none mt-1">BELUM ADA</h3>
+              </div>
+            </div>
+
+            <!-- Quick Stats Chips -->
+            <div class="grid grid-cols-3 gap-3 mb-4">
+              <div class="bg-surface-container-lowest/80 p-2.5 rounded-lg border border-white/5 text-center">
+                <span class="text-[10px] uppercase font-bold text-on-surface-variant block">MENIT MAIN</span>
+                <span id="home-minutes" class="font-headline text-2xl text-white leading-none">-</span>
+              </div>
+              <div class="bg-surface-container-lowest/80 p-2.5 rounded-lg border border-white/5 text-center">
+                <span class="text-[10px] uppercase font-bold text-secondary block">GOL</span>
+                <span id="home-goals" class="font-headline text-2xl text-secondary leading-none">-</span>
+              </div>
+              <div class="bg-surface-container-lowest/80 p-2.5 rounded-lg border border-white/5 text-center">
+                <span class="text-[10px] uppercase font-bold text-tertiary block">ASSIST</span>
+                <span id="home-assists" class="font-headline text-2xl text-tertiary leading-none">-</span>
+              </div>
+            </div>
+
+            <!-- Momen Kunci -->
+            <div class="bg-surface-container-lowest/70 p-3.5 rounded-lg border border-white/5 mb-5">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-primary block mb-1">MOMEN KUNCI:</span>
+              <p id="home-moment-text" class="text-xs text-on-surface italic leading-relaxed">
+                "Belum ada data pertandingan. Silakan catat pertandingan baru di tab Custom Player."
+              </p>
+            </div>
+          </div>
+
+          <!-- Tone Selector & Action Button -->
+          <div class="pt-4 border-t border-white/10 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">PILIH GAYA NARASI:</span>
+              <div class="flex gap-1" id="tone-selector">
+                <button onclick="setTone('Dramatis')" id="btn-tone-dramatis" class="tone-btn font-headline text-base tracking-wider px-3.5 py-1 transition bg-primary-container text-slate-950 font-bold">
+                  DRAMATIS
+                </button>
+                <button onclick="setTone('Formal')" id="btn-tone-formal" class="tone-btn font-headline text-base tracking-wider px-3.5 py-1 transition text-on-surface-variant hover:text-white bg-surface-container-lowest border border-white/5">
+                  FORMAL
+                </button>
+                <button onclick="setTone('Santai')" id="btn-tone-santai" class="tone-btn font-headline text-base tracking-wider px-3.5 py-1 transition text-on-surface-variant hover:text-white bg-surface-container-lowest border border-white/5">
+                  SANTAI
+                </button>
+              </div>
+            </div>
+
+            <button onclick="generateStoryFromHome()" id="btn-home-generate" class="w-full py-3.5 bg-primary-container hover:bg-primary text-slate-950 font-headline text-2xl tracking-wider transition shadow-[0_0_20px_rgba(229,169,60,0.4)] flex items-center justify-center gap-2 font-bold uppercase">
+              <span class="material-symbols-outlined text-[24px]">auto_awesome</span>
+              <span>GENERATE AI NARRATIVE</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- TILE 2: FUT PROFILE CARD (col-span-5) -->
+        <div class="xl:col-span-5 fifa-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-secondary font-headline text-lg tracking-wider uppercase flex items-center gap-1.5">
+                <span class="w-2 h-2 bg-secondary transform -skew-x-12 inline-block"></span> FUT PROFILE CARD
+              </span>
+              <span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider border border-primary/20">
+                ATHLETIC SPECIAL
+              </span>
+            </div>
+
+            <!-- Kartu FUT Emas -->
+            <div class="bg-gradient-to-b from-[#3a2f18] via-surface-container-lowest to-surface-container p-5 rounded-2xl border-2 border-primary/40 shadow-[0_0_25px_rgba(229,169,60,0.25)] relative overflow-hidden mb-5">
+              <div class="flex items-start justify-between gap-3 mb-4">
+                <div>
+                  <div class="font-headline text-5xl text-primary font-bold leading-none" id="fut-rating">88</div>
+                  <div class="font-headline text-2xl text-white leading-none uppercase mt-1" id="home-player-position">ST</div>
+                  <div class="text-[10px] font-bold text-on-surface-variant uppercase mt-1 tracking-wider" id="home-player-country">INDONESIA</div>
+                </div>
+                <div class="w-20 h-20 rounded-xl bg-surface-container-high border border-primary/30 flex items-center justify-center font-headline text-4xl text-primary font-bold shadow-inner" id="home-player-avatar">
+                  U
+                </div>
+              </div>
+
+              <!-- Nama Pemain -->
+              <div class="text-center py-2 border-t border-b border-primary/20 mb-4">
+                <h2 class="font-headline text-3xl tracking-widest text-primary uppercase font-bold truncate" id="home-player-name">
+                  NAMA PEMAIN
+                </h2>
+              </div>
+
+              <!-- Statistik Kunci -->
+              <div class="grid grid-cols-2 gap-2 text-xs font-bold text-center">
+                <div class="bg-black/40 p-2 rounded border border-white/5">
+                  <span class="text-on-surface-variant block text-[10px]">TOTAL PERTANDINGAN</span>
+                  <span class="text-white text-base font-headline tracking-wider" id="home-total-matches">0 LAGA</span>
+                </div>
+                <div class="bg-black/40 p-2 rounded border border-white/5">
+                  <span class="text-on-surface-variant block text-[10px]">TOTAL KONTRIBUSI GOL</span>
+                  <span class="text-secondary text-base font-headline tracking-wider" id="home-total-goals">0 GOL</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Metrik Kustom Personal -->
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant block mb-2">METRIK KUSTOM AKTIF:</span>
+              <div id="home-metrics-chips" class="flex flex-wrap gap-2">
+                <span class="text-xs text-on-surface-variant/60 italic">Belum ada metrik kustom.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-white/10">
+            <button onclick="switchTab('profile')" class="w-full py-2.5 bg-surface-container-high hover:bg-surface-container-highest text-white font-headline text-base tracking-wider uppercase transition border border-white/5 flex items-center justify-center gap-2">
+              <span>LIHAT RINCIAN PROFIL LENGKAP</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TILE ROW 2: RECORD MATCH & THE JOURNEY -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        
+        <!-- TILE: RECORD MATCH (col-span-5) -->
+        <div onclick="switchTab('custom-player')" class="md:col-span-5 fifa-card rounded-2xl p-6 border border-white/10 hover:border-secondary cursor-pointer transition flex flex-col justify-between group">
+          <div>
+            <span class="bg-secondary/20 text-secondary text-[10px] font-bold px-2 py-0.5 tracking-wider uppercase inline-block mb-2">
+              LOGGING ENGINE
+            </span>
+            <h4 class="font-headline text-3xl text-white tracking-wide group-hover:text-secondary transition uppercase">
+              RECORD MATCH
+            </h4>
+            <p class="text-xs text-on-surface-variant mt-1">Catat data pertandingan, skor, gol, kartu, dan statistik kustom.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between">
+            <span class="text-xs font-bold text-secondary uppercase tracking-wider">MULAI CATAT BARU</span>
+            <span class="material-symbols-outlined text-secondary group-hover:translate-x-1 transition text-[20px]">arrow_forward</span>
+          </div>
+        </div>
+
+        <!-- TILE: THE JOURNEY (col-span-7) -->
+        <div onclick="switchTab('story-vault')" class="md:col-span-7 fifa-card rounded-2xl p-6 border border-white/10 hover:border-primary cursor-pointer transition flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-primary font-headline text-lg tracking-wider uppercase flex items-center gap-1.5">
+                <span class="w-2 h-2 bg-primary transform -skew-x-12 inline-block"></span> THE JOURNEY
+              </span>
+              <span class="text-[11px] text-on-surface-variant font-semibold">ARSIP HISTORI CERITA</span>
+            </div>
+            <h4 class="font-headline text-3xl text-white tracking-wide group-hover:text-primary transition uppercase">
+              STORY VAULT
+            </h4>
+            <p class="text-xs text-on-surface-variant mt-1">Buka kembali seluruh kisah perjalanan sepakbola yang telah disusun oleh AI.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between">
+            <span class="text-xs font-bold text-primary uppercase tracking-wider">JELAJAHI ARSIP CERITA LENGKAP</span>
+            <span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition text-[20px]">arrow_forward</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 2: CUSTOM PLAYER (MODE 2 LENGKAP)                                  -->
+    <!-- ======================================================================= -->
+    <section id="view-custom-player" class="hidden space-y-6">
+      
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="font-headline text-4xl tracking-wider text-white uppercase">MODE 2: CUSTOM PLAYER</h2>
+          <p class="text-xs text-on-surface-variant">Dokumentasikan Karir Sepakbola Amatir Anda dengan Data Statistik Nyata</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Form Input Pertandingan - col-span-8 -->
+        <div class="lg:col-span-8 fifa-card rounded-2xl p-6 sm:p-7 border border-white/10">
+          <h3 class="font-headline text-3xl text-primary tracking-wider mb-4 uppercase">
+            CATAT PERTANDINGAN BARU
+          </h3>
+
+          <form id="form-add-match" onsubmit="handleAddMatch(event)" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Tanggal</label>
+                <input type="date" id="match-date" required class="w-full px-3.5 py-2.5 fifa-input text-sm" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-secondary mb-1">Nama Tim Anda</label>
+                <input type="text" id="match-team-name" required placeholder="Contoh: Garuda FC" value="Garuda FC" class="w-full px-3.5 py-2.5 fifa-input text-sm font-semibold" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Nama Lawan</label>
+                <input type="text" id="match-opponent" required placeholder="Contoh: Elang FC" class="w-full px-3.5 py-2.5 fifa-input text-sm" />
+              </div>
+            </div>
+
+
+            <!-- Skor & Posisi -->
+            <div class="grid grid-cols-3 gap-3">
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Skor Tim Anda</label>
+                <input type="number" id="match-score-home" min="0" value="0" required class="w-full px-3 py-2 fifa-input text-sm text-center font-bold font-headline text-lg" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Skor Lawan</label>
+                <input type="number" id="match-score-away" min="0" value="0" required class="w-full px-3 py-2 fifa-input text-sm text-center font-bold font-headline text-lg" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Posisi Main</label>
+                <input type="text" id="match-position" value="Striker" required class="w-full px-3 py-2 fifa-input text-sm" />
+              </div>
+            </div>
+
+            <!-- Statistik Pemain -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Menit Main</label>
+                <input type="number" id="match-minutes" min="1" max="120" value="90" required class="w-full px-3 py-2 fifa-input text-sm" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Gol Dicetak</label>
+                <input type="number" id="match-goals" min="0" value="0" required class="w-full px-3 py-2 fifa-input text-sm text-secondary font-bold" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Assist</label>
+                <input type="number" id="match-assists" min="0" value="0" required class="w-full px-3 py-2 fifa-input text-sm text-tertiary font-bold" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Kartu Kuning / Merah</label>
+                <div class="grid grid-cols-2 gap-1">
+                  <input type="number" id="match-yellow" min="0" max="2" value="0" title="Kuning" class="w-full px-2 py-2 fifa-input text-xs text-center text-amber-300" />
+                  <input type="number" id="match-red" min="0" max="1" value="0" title="Merah" class="w-full px-2 py-2 fifa-input text-xs text-center text-rose-400" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Metrik Kustom Dinamis -->
+            <div id="dynamic-metrics-container" class="pt-2 border-t border-white/5 space-y-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-on-surface-variant block">Metrik Kustom untuk Pertandingan Ini:</span>
+              <div id="dynamic-metrics-inputs" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+            </div>
+
+            <!-- Momen Berkesan -->
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Momen Berkesan Pertandingan</label>
+              <textarea id="match-moment" rows="2" placeholder="Ceritakan momen penting yang membakar semangat di lapangan..." class="w-full px-3.5 py-2.5 fifa-input text-sm"></textarea>
+            </div>
+
+            <button type="submit" id="btn-submit-match" class="w-full py-3 bg-primary-container hover:bg-primary text-slate-950 font-headline text-xl tracking-wider uppercase transition font-bold shadow-[0_0_20px_rgba(229,169,60,0.3)]">
+              SIMPAN DATA PERTANDINGAN
+            </button>
+          </form>
+        </div>
+
+        <!-- Panel Kelola Metrik Kustom - col-span-4 -->
+        <div class="lg:col-span-4 fifa-card rounded-2xl p-6 border border-white/10 flex flex-col justify-between">
+          <div>
+            <h3 class="font-headline text-3xl text-secondary tracking-wider mb-2 uppercase">METRIK KUSTOM</h3>
+            <p class="text-xs text-on-surface-variant mb-4">Definisikan statistik unik Anda sendiri. Kolom otomatis muncul di form pertandingan.</p>
+
+            <!-- Form Tambah Metrik Baru -->
+            <form id="form-add-metric" onsubmit="handleAddMetric(event)" class="space-y-3 mb-5 p-3.5 bg-surface-container-lowest rounded-xl border border-white/5">
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Nama Metrik</label>
+                <input type="text" id="metric-name" required placeholder="Contoh: Sprint Cepat" class="w-full px-3 py-1.5 fifa-input text-xs" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Satuan</label>
+                <input type="text" id="metric-unit" required placeholder="kali / % / meter" value="kali" class="w-full px-3 py-1.5 fifa-input text-xs" />
+              </div>
+              <button type="submit" class="w-full py-2 bg-secondary hover:bg-secondary-container text-slate-950 font-headline text-base tracking-wider uppercase font-bold transition">
+                + TAMBAH METRIK
+              </button>
+            </form>
+
+            <span class="text-xs font-bold uppercase tracking-wider text-on-surface-variant block mb-2">Daftar Metrik Anda:</span>
+            <div id="metrics-list" class="space-y-1.5 max-h-48 overflow-y-auto pr-1"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Tabel Riwayat Pertandingan -->
+      <div class="fifa-card rounded-2xl p-6 border border-white/10">
+        <h3 class="font-headline text-3xl text-white tracking-wider mb-3 uppercase">RIWAYAT PERTANDINGAN SAYA</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-on-surface">
+            <thead class="bg-surface-container-lowest text-on-surface-variant uppercase text-[10px] tracking-wider border-b border-white/10 font-bold">
+              <tr>
+                <th class="py-3 px-3">Tanggal</th>
+                <th class="py-3 px-3">Lawan</th>
+                <th class="py-3 px-3 text-center">Skor</th>
+                <th class="py-3 px-3 text-center">Menit</th>
+                <th class="py-3 px-3 text-center">Gol</th>
+                <th class="py-3 px-3 text-center">Assist</th>
+                <th class="py-3 px-3">Momen Berkesan</th>
+                <th class="py-3 px-3 text-right">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="matches-table-body" class="divide-y divide-white/5"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 3: STORY VAULT (ARSIP CERITA AI)                                   -->
+    <!-- ======================================================================= -->
+    <section id="view-story-vault" class="hidden space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="font-headline text-4xl tracking-wider text-white uppercase">THE JOURNEY: STORY VAULT</h2>
+          <p class="text-xs text-on-surface-variant">Galeri Arsip Narasi Perjalanan Karir Sepakbola yang Ditulis oleh AI</p>
+        </div>
+        <button onclick="showRoadmapModal('Fitur Ekspor PDF Profesional (Khusus Tier Premium & Tim)')" class="px-4 py-2 bg-primary/10 border border-primary/30 text-primary font-headline text-base tracking-wider uppercase hover:bg-primary/20 transition flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px]">download</span>
+          <span>EKSPOR PDF (PREMIUM)</span>
+        </button>
+      </div>
+
+      <div id="stories-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 4: PROFIL SAYA                                                     -->
+    <!-- ======================================================================= -->
+    <section id="view-profile" class="hidden max-w-2xl mx-auto w-full fifa-card rounded-2xl p-7 border border-white/10 space-y-6">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4">
+        <div>
+          <h2 class="font-headline text-4xl tracking-wider text-white uppercase">PROFIL PEMAIN SAYA</h2>
+          <p class="text-xs text-on-surface-variant">Informasi Akun dan Karir Sepakbola Anda</p>
+        </div>
+        <span class="px-3 py-1 bg-primary/20 text-primary border border-primary/40 font-headline text-base tracking-wider uppercase font-bold" id="prof-tier-badge">
+          FREE TIER
+        </span>
+      </div>
+
+      <form id="form-edit-profile" onsubmit="handleUpdateProfile(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Nama Lengkap</label>
+          <input type="text" id="prof-fullname" required class="w-full px-3.5 py-2.5 fifa-input text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Email Terdaftar (Tidak dapat diubah)</label>
+          <input type="email" id="prof-email" disabled class="w-full px-3.5 py-2.5 fifa-input text-sm text-slate-500 opacity-60 cursor-not-allowed" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Posisi Bermain</label>
+            <select id="prof-position" class="w-full px-3 py-2.5 fifa-input text-sm">
+              <option value="Striker">Striker</option>
+              <option value="Winger">Winger</option>
+              <option value="Midfielder">Midfielder</option>
+              <option value="Defender">Defender</option>
+              <option value="Goalkeeper">Goalkeeper</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Negara</label>
+            <input type="text" id="prof-country" class="w-full px-3 py-2.5 fifa-input text-sm" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">Bio Singkat</label>
+          <textarea id="prof-bio" rows="3" class="w-full px-3.5 py-2.5 fifa-input text-sm"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-primary-container hover:bg-primary text-slate-950 font-headline text-xl tracking-wider transition uppercase font-bold shadow-[0_0_20px_rgba(229,169,60,0.3)]">
+          SIMPAN PERUBAHAN PROFIL
+        </button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: ANIMASI LOADING AI NARRATIVE (MEMENUHI NFR-009)                    -->
+  <!-- ========================================================================= -->
+  <div id="modal-ai-loading" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="fifa-card max-w-sm w-full rounded-2xl p-7 text-center border-2 border-primary/40 relative shadow-[0_0_40px_rgba(229,169,60,0.3)]">
+      <div class="relative w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+        <div class="absolute inset-0 rounded-full border-4 border-primary/20 border-t-primary animate-spin"></div>
+        <span class="material-symbols-outlined text-primary text-3xl animate-pulse">sports_soccer</span>
+      </div>
+      <h3 class="font-headline text-3xl text-white tracking-wider uppercase mb-1">AI ENGINE RUNNING</h3>
+      <p id="loading-ai-desc" class="text-xs text-on-surface-variant leading-relaxed">
+        Sedang mensintesis data statistik pertandingan menjadi narasi cerita epik...
+      </p>
+      <div class="mt-4 flex items-center justify-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+        <span class="text-[10px] uppercase font-bold text-primary tracking-widest">MEMPROSES NARASI</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: PEMBACA NARASI CERITA LENGKAP                                      -->
+  <!-- ========================================================================= -->
+  <div id="modal-story-reader" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="fifa-card max-w-2xl w-full rounded-2xl p-6 sm:p-8 border border-white/10 max-h-[90vh] flex flex-col relative overflow-hidden">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+        <div>
+          <span id="modal-story-style-badge" class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-primary/20 text-primary border border-primary/30">
+            DRAMATIS
+          </span>
+          <span id="modal-story-date" class="text-xs text-on-surface-variant ml-2">24 Oktober 2026</span>
+        </div>
+        <button onclick="closeStoryModal()" class="text-on-surface-variant hover:text-white p-1">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <h2 id="modal-story-title" class="font-headline text-3xl sm:text-4xl tracking-wide text-white mb-4 uppercase">
+        Judul Cerita
+      </h2>
+
+      <div class="flex-1 overflow-y-auto pr-2 text-on-surface text-sm leading-relaxed whitespace-pre-line space-y-4" id="modal-story-content"></div>
+
+      <div class="pt-4 mt-4 border-t border-white/10 flex items-center justify-between">
+        <button onclick="shareCurrentStory()" class="px-4 py-2 bg-surface-container-high hover:bg-surface-container-highest text-xs font-bold text-white uppercase tracking-wider transition border border-white/10 flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px]">share</span>
+          <span>SALIN LINK STORY</span>
+        </button>
+        <button onclick="closeStoryModal()" class="px-6 py-2 bg-primary-container hover:bg-primary text-slate-950 font-headline text-lg tracking-wider transition font-bold uppercase">
+          TUTUP
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: ROADMAP TEASER (UNTUK FITUR PASCA-UTS)                             -->
+  <!-- ========================================================================= -->
+  <div id="modal-roadmap" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="fifa-card max-w-md w-full rounded-2xl p-6 border border-white/10 text-center relative">
+      <div class="w-12 h-12 bg-primary/20 border border-primary/40 flex items-center justify-center text-primary mx-auto mb-3">
+        <span class="material-symbols-outlined text-2xl">schedule</span>
+      </div>
+      <h3 class="font-headline text-3xl text-white tracking-wide uppercase">MILESTONE ROADMAP</h3>
+      <p id="modal-roadmap-title" class="text-xs font-bold text-primary mt-1 mb-2">Fitur</p>
+      <p class="text-xs text-on-surface-variant leading-relaxed mb-6">
+        Fitur ini telah tercantum dalam perencanaan arsitektur sistem dan dijadwalkan untuk dirilis pada <strong>Sprint Milestone Pasca-UTS</strong> sesuai rencana pengerjaan.
+      </p>
+      <button onclick="closeRoadmapModal()" class="w-full py-2.5 bg-primary-container hover:bg-primary text-slate-950 font-headline text-lg tracking-wider uppercase font-bold transition">
+        MENGERTI & LANJUTKAN
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT: LOGIKA & INTEGRASI API (BEBAS DARI KODE TEKNIS UC-xxx)        -->
+  <!-- ========================================================================= -->
+  <script>
+    const API_URL = "http://localhost:8000/api";
+    let currentAuthMode = "login";
+    let currentUser = null;
+    let selectedTone = "Dramatis";
+    let allMatches = [];
+    let allMetrics = [];
+    let currentModalStory = null;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const savedToken = localStorage.getItem("kd_token");
+      if (savedToken) {
+        fetchProfileAndLoadApp();
+      } else {
+        showAuthView();
+      }
+    });
+
+    function showAuthView() {
+      document.getElementById("main-header").classList.add("hidden");
+      document.getElementById("telemetry-bar").classList.add("hidden");
+      document.getElementById("view-auth").classList.remove("hidden");
+      document.getElementById("view-home").classList.add("hidden");
+      document.getElementById("view-custom-player").classList.add("hidden");
+      document.getElementById("view-story-vault").classList.add("hidden");
+      document.getElementById("view-profile").classList.add("hidden");
+    }
+
+    function showDashboardView() {
+      document.getElementById("view-auth").classList.add("hidden");
+      document.getElementById("main-header").classList.remove("hidden");
+      document.getElementById("telemetry-bar").classList.remove("hidden");
+      switchTab('home');
+    }
+
+    function switchTab(tabId) {
+      document.getElementById("view-home").classList.add("hidden");
+      document.getElementById("view-custom-player").classList.add("hidden");
+      document.getElementById("view-story-vault").classList.add("hidden");
+      document.getElementById("view-profile").classList.add("hidden");
+
+      document.querySelectorAll(".nav-tab").forEach(btn => {
+        btn.className = "nav-tab font-headline text-lg uppercase px-5 py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all";
+      });
+
+      const targetView = document.getElementById("view-" + tabId);
+      const targetBtn = document.getElementById("tab-btn-" + tabId);
+      if (targetView) targetView.classList.remove("hidden");
+      if (targetBtn) {
+        targetBtn.className = "nav-tab font-headline text-lg uppercase px-5 py-1.5 transition-all bg-primary-container text-slate-950 shadow-[0_0_15px_rgba(229,169,60,0.4)]";
+      }
+
+      if (tabId === "custom-player") renderCustomPlayerView();
+      else if (tabId === "story-vault") fetchStories();
+      else if (tabId === "home") refreshHomeStats();
+    }
+
+    function setAuthMode(mode) {
+      currentAuthMode = mode;
+      const tabLogin = document.getElementById("auth-tab-login");
+      const tabReg = document.getElementById("auth-tab-register");
+      const formLogin = document.getElementById("form-login");
+      const formReg = document.getElementById("form-register");
+
+      if (mode === "login") {
+        tabLogin.className = "flex-1 py-1.5 font-headline text-base tracking-wider transition bg-primary-container text-slate-950 font-bold";
+        tabReg.className = "flex-1 py-1.5 font-headline text-base tracking-wider transition text-on-surface-variant hover:text-white";
+        formLogin.classList.remove("hidden");
+        formReg.classList.add("hidden");
+      } else {
+        tabReg.className = "flex-1 py-1.5 font-headline text-base tracking-wider transition bg-primary-container text-slate-950 font-bold";
+        tabLogin.className = "flex-1 py-1.5 font-headline text-base tracking-wider transition text-on-surface-variant hover:text-white";
+        formReg.classList.remove("hidden");
+        formLogin.classList.add("hidden");
+      }
+    }
+
+    function setTone(tone) {
+      selectedTone = tone;
+      document.querySelectorAll(".tone-btn").forEach(b => {
+        b.className = "tone-btn font-headline text-base tracking-wider px-3.5 py-1 transition text-on-surface-variant hover:text-white bg-surface-container-lowest border border-white/5";
+      });
+      const activeBtn = document.getElementById("btn-tone-" + tone.toLowerCase());
+      if (activeBtn) {
+        activeBtn.className = "tone-btn font-headline text-base tracking-wider px-3.5 py-1 transition bg-primary-container text-slate-950 font-bold";
+      }
+    }
+
+    // =========================================================================
+    // AUTENTIKASI
+    // =========================================================================
+    async function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value.trim();
+      const password = document.getElementById("login-password").value;
+      const btn = document.getElementById("btn-login-submit");
+
+      btn.disabled = true;
+      btn.innerText = "MEMVERIFIKASI...";
+
+      try {
+        const res = await fetch(`${API_URL}/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Gagal masuk");
+
+        localStorage.setItem("kd_token", data.access_token);
+        showToast("Masuk berhasil! Selamat datang kembali.", "success");
+        await fetchProfileAndLoadApp();
+      } catch (err) {
+        showToast(err.message, "error");
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "MASUK KE SISTEM";
+      }
+    }
+
+    async function handleRegister(e) {
+      e.preventDefault();
+      const full_name = document.getElementById("reg-fullname").value.trim();
+      const email = document.getElementById("reg-email").value.trim();
+      const password = document.getElementById("reg-password").value;
+      const position = document.getElementById("reg-position").value;
+      const country = document.getElementById("reg-country").value.trim();
+      const btn = document.getElementById("btn-reg-submit");
+
+      btn.disabled = true;
+      btn.innerText = "MENDAFTARKAN...";
+
+      try {
+        const res = await fetch(`${API_URL}/auth/register`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ full_name, email, password, position, country })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Gagal mendaftar");
+
+        showToast("Registrasi berhasil! Silakan masuk dengan akun baru Anda.", "success");
+        setAuthMode("login");
+        document.getElementById("login-email").value = email;
+      } catch (err) {
+        showToast(err.message, "error");
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "BUAT AKUN BARU";
+      }
+    }
+
+    async function fetchProfileAndLoadApp() {
+      const token = localStorage.getItem("kd_token");
+      try {
+        const res = await fetch(`${API_URL}/auth/profile`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error("Sesi telah kedaluwarsa");
+        currentUser = await res.json();
+        
+        updateNavbarAndProfileUI();
+        await fetchAllData();
+        showDashboardView();
+      } catch (err) {
+        localStorage.removeItem("kd_token");
+        showAuthView();
+      }
+    }
+
+    function confirmLogout() {
+      if (confirm("Apakah Anda yakin ingin keluar dari KickDiary?")) {
+        const token = localStorage.getItem("kd_token");
+        fetch(`${API_URL}/auth/logout`, {
+          method: "POST",
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        localStorage.removeItem("kd_token");
+        currentUser = null;
+        showToast("Sesi berhasil diakhiri.", "info");
+        showAuthView();
+      }
+    }
+
+    function updateNavbarAndProfileUI() {
+      if (!currentUser) return;
+      const initial = currentUser.full_name ? currentUser.full_name.charAt(0).toUpperCase() : "U";
+      
+      document.getElementById("nav-user-avatar").innerText = initial;
+      document.getElementById("nav-user-name").innerText = currentUser.full_name;
+      document.getElementById("nav-tier-badge").innerText = `${currentUser.tier} TIER`;
+      
+      document.getElementById("home-player-avatar").innerText = initial;
+      document.getElementById("home-player-name").innerText = currentUser.full_name;
+      document.getElementById("home-player-position").innerText = currentUser.position || "ST";
+      document.getElementById("home-player-country").innerText = currentUser.country || "INDONESIA";
+
+      document.getElementById("prof-fullname").value = currentUser.full_name;
+      document.getElementById("prof-email").value = currentUser.email;
+      document.getElementById("prof-position").value = currentUser.position || "Striker";
+      document.getElementById("prof-country").value = currentUser.country || "Indonesia";
+      document.getElementById("prof-bio").value = currentUser.bio || "";
+      document.getElementById("prof-tier-badge").innerText = `${currentUser.tier} TIER`;
+    }
+
+    async function handleUpdateProfile(e) {
+      e.preventDefault();
+      const token = localStorage.getItem("kd_token");
+      const full_name = document.getElementById("prof-fullname").value.trim();
+      const position = document.getElementById("prof-position").value;
+      const country = document.getElementById("prof-country").value.trim();
+      const bio = document.getElementById("prof-bio").value.trim();
+
+      try {
+        const res = await fetch(`${API_URL}/auth/profile`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({ full_name, position, country, bio })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Gagal memperbarui profil");
+
+        currentUser = data;
+        updateNavbarAndProfileUI();
+        showToast("Profil berhasil diperbarui!", "success");
+      } catch (err) {
+        showToast(err.message, "error");
+      }
+    }
+
+    // =========================================================================
+    // DATA PERTANDINGAN & METRIK KUSTOM
+    // =========================================================================
+    async function fetchAllData() {
+      const token = localStorage.getItem("kd_token");
+      const headers = { "Authorization": `Bearer ${token}` };
+
+      try {
+        const [resMatches, resMetrics] = await Promise.all([
+          fetch(`${API_URL}/matches`, { headers }),
+          fetch(`${API_URL}/metrics`, { headers })
+        ]);
+
+        allMatches = await resMatches.json();
+        allMetrics = await resMetrics.json();
+
+        refreshHomeStats();
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    }
+
+    function refreshHomeStats() {
+      if (allMatches && allMatches.length > 0) {
+        const latest = allMatches[0];
+        document.getElementById("home-match-date").innerText = latest.match_date;
+        document.getElementById("home-team-name").innerText = latest.team_name || "TIM ANDA";
+        document.getElementById("home-opponent-name").innerText = latest.opponent;
+        document.getElementById("home-score-display").innerText = `${latest.score_home} : ${latest.score_away}`;
+
+        document.getElementById("home-minutes").innerText = `${latest.minutes_played}'`;
+        document.getElementById("home-goals").innerText = latest.goals;
+        document.getElementById("home-assists").innerText = latest.assists;
+        document.getElementById("home-moment-text").innerText = `"${latest.memorable_moment || 'Pertandingan penuh determinasi di lapangan.'}"`;
+      } else {
+        document.getElementById("home-match-date").innerText = "Belum ada laga";
+        document.getElementById("home-opponent-name").innerText = "BELUM ADA";
+        document.getElementById("home-score-display").innerText = "0 : 0";
+        document.getElementById("home-minutes").innerText = "-";
+        document.getElementById("home-goals").innerText = "-";
+        document.getElementById("home-assists").innerText = "-";
+        document.getElementById("home-moment-text").innerText = `"Belum ada data pertandingan. Buka tab Custom Player untuk mencatat laga baru."`;
+      }
+
+      document.getElementById("home-total-matches").innerText = `${allMatches.length} LAGA`;
+      const totalGoals = allMatches.reduce((acc, m) => acc + (m.goals || 0), 0);
+      document.getElementById("home-total-goals").innerText = `${totalGoals} GOL`;
+
+      // Rating calculation dinamis
+      const baseRating = 75 + Math.min(allMatches.length * 2, 10) + Math.min(totalGoals * 2, 10);
+      document.getElementById("fut-rating").innerText = Math.min(baseRating, 95);
+
+      const chipsContainer = document.getElementById("home-metrics-chips");
+      if (allMetrics && allMetrics.length > 0) {
+        chipsContainer.innerHTML = allMetrics.map(m => `
+          <span class="px-2.5 py-1 bg-surface-container-high border border-white/10 text-on-surface text-xs font-semibold">
+            • ${m.name} (${m.unit})
+          </span>
+        `).join("");
+      } else {
+        chipsContainer.innerHTML = `<span class="text-xs text-on-surface-variant/60 italic">Belum ada metrik kustom.</span>`;
+      }
+    }
+
+    function renderCustomPlayerView() {
+      const dynamicContainer = document.getElementById("dynamic-metrics-inputs");
+      if (allMetrics && allMetrics.length > 0) {
+        dynamicContainer.innerHTML = allMetrics.map(m => `
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant mb-1">${m.name} (${m.unit})</label>
+            <input type="number" step="any" data-metric-id="${m.id}" value="0" class="custom-metric-input w-full px-3 py-1.5 fifa-input text-xs" />
+          </div>
+        `).join("");
+      } else {
+        dynamicContainer.innerHTML = `<p class="text-xs text-on-surface-variant/60 italic col-span-2">Tidak ada metrik kustom aktif. Tambahkan di panel sebelah kanan.</p>`;
+      }
+
+      const listContainer = document.getElementById("metrics-list");
+      if (allMetrics && allMetrics.length > 0) {
+        listContainer.innerHTML = allMetrics.map(m => `
+          <div class="flex items-center justify-between p-2 rounded bg-surface-container-lowest border border-white/5 text-xs">
+            <span class="text-on-surface font-semibold">${m.name} <span class="text-on-surface-variant text-[10px]">(${m.unit})</span></span>
+            <button onclick="handleDeleteMetric(${m.id})" class="text-on-surface-variant hover:text-rose-400 p-1" title="Hapus Metrik">
+              <span class="material-symbols-outlined text-[16px]">delete</span>
+            </button>
+          </div>
+        `).join("");
+      } else {
+        listContainer.innerHTML = `<p class="text-xs text-on-surface-variant/60 italic">Belum ada metrik kustom yang dibuat.</p>`;
+      }
+
+      const tableBody = document.getElementById("matches-table-body");
+      if (allMatches && allMatches.length > 0) {
+        tableBody.innerHTML = allMatches.map(m => `
+          <tr class="hover:bg-white/5 transition">
+            <td class="py-2.5 px-3 whitespace-nowrap text-on-surface-variant font-semibold">${m.match_date}</td>
+            <td class="py-2.5 px-3 font-bold text-white uppercase"><span class="text-secondary">${m.team_name || 'Tim Anda'}</span> vs ${m.opponent}</td>
+            <td class="py-2.5 px-3 text-center font-headline text-xl text-primary font-bold">${m.score_home} : ${m.score_away}</td>
+            <td class="py-2.5 px-3 text-center text-on-surface">${m.minutes_played}'</td>
+            <td class="py-2.5 px-3 text-center text-secondary font-bold font-headline text-lg">${m.goals}</td>
+            <td class="py-2.5 px-3 text-center text-tertiary font-bold font-headline text-lg">${m.assists}</td>
+            <td class="py-2.5 px-3 text-on-surface-variant max-w-xs truncate">${m.memorable_moment || '-'}</td>
+            <td class="py-2.5 px-3 text-right">
+              <button onclick="generateStoryForMatch(${m.id})" class="px-3 py-1 bg-primary/20 text-primary hover:bg-primary/30 text-xs font-headline tracking-wider transition border border-primary/30 uppercase font-bold">
+                BUAT CERITA
+              </button>
+            </td>
+          </tr>
+        `).join("");
+
+      } else {
+        tableBody.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-on-surface-variant italic">Belum ada data pertandingan yang dicatat.</td></tr>`;
+      }
+    }
+
+    async function handleAddMetric(e) {
+      e.preventDefault();
+      const token = localStorage.getItem("kd_token");
+      const name = document.getElementById("metric-name").value.trim();
+      const unit = document.getElementById("metric-unit").value.trim();
+
+      try {
+        const res = await fetch(`${API_URL}/metrics`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({ name, unit })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Gagal menambah metrik");
+
+        showToast(`Metrik "${name}" berhasil ditambahkan!`, "success");
+        document.getElementById("metric-name").value = "";
+        await fetchAllData();
+        renderCustomPlayerView();
+      } catch (err) {
+        showToast(err.message, "error");
+      }
+    }
+
+    async function handleDeleteMetric(metricId) {
+      if (!confirm("Hapus metrik ini? Data pertandingan lama tetap aman.")) return;
+      const token = localStorage.getItem("kd_token");
+      try {
+        const res = await fetch(`${API_URL}/metrics/${metricId}`, {
+          method: "DELETE",
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error("Gagal menghapus metrik");
+
+        showToast("Metrik kustom dihapus.", "info");
+        await fetchAllData();
+        renderCustomPlayerView();
+      } catch (err) {
+        showToast(err.message, "error");
+      }
+    }
+
+    async function handleAddMatch(e) {
+      e.preventDefault();
+      const token = localStorage.getItem("kd_token");
+      const btn = document.getElementById("btn-submit-match");
+
+      const customMetricsPayload = [];
+      document.querySelectorAll(".custom-metric-input").forEach(input => {
+        const metricId = parseInt(input.getAttribute("data-metric-id"));
+        const val = parseFloat(input.value) || 0;
+        customMetricsPayload.push({ metric_id: metricId, value: val });
+      });
+
+      const payload = {
+        match_date: document.getElementById("match-date").value,
+        team_name: document.getElementById("match-team-name").value.trim() || "Tim Anda",
+        opponent: document.getElementById("match-opponent").value.trim(),
+        score_home: parseInt(document.getElementById("match-score-home").value) || 0,
+
+        score_away: parseInt(document.getElementById("match-score-away").value) || 0,
+        position: document.getElementById("match-position").value.trim(),
+        minutes_played: parseInt(document.getElementById("match-minutes").value) || 90,
+        goals: parseInt(document.getElementById("match-goals").value) || 0,
+        assists: parseInt(document.getElementById("match-assists").value) || 0,
+        yellow_cards: parseInt(document.getElementById("match-yellow").value) || 0,
+        red_cards: parseInt(document.getElementById("match-red").value) || 0,
+        memorable_moment: document.getElementById("match-moment").value.trim(),
+        custom_metrics: customMetricsPayload
+      };
+
+      btn.disabled = true;
+      btn.innerText = "MENYIMPAN...";
+
+      try {
+        const res = await fetch(`${API_URL}/matches`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Gagal mencatat pertandingan");
+
+        showToast(`Pertandingan vs ${payload.opponent} berhasil disimpan!`, "success");
+        document.getElementById("form-add-match").reset();
+        await fetchAllData();
+        renderCustomPlayerView();
+      } catch (err) {
+        showToast(err.message, "error");
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "SIMPAN DATA PERTANDINGAN";
+      }
+    }
+
+    // =========================================================================
+    // AI STORYTELLING & ANIMASI LOADING (MEMENUHI NFR-009)
+    // =========================================================================
+    async function generateStoryFromHome() {
+      if (!allMatches || allMatches.length === 0) {
+        showToast("Belum ada data pertandingan! Silakan catat laga terlebih dahulu.", "warning");
+        switchTab("custom-player");
+        return;
+      }
+      const latestMatch = allMatches[0];
+      await executeStoryGeneration(latestMatch.id, selectedTone);
+    }
+
+    async function generateStoryForMatch(matchId) {
+      await executeStoryGeneration(matchId, selectedTone);
+    }
+
+    async function executeStoryGeneration(matchId, tone) {
+      const token = localStorage.getItem("kd_token");
+      
+      // Tampilkan Modal Animasi Loading AI (NFR-009)
+      const modalLoading = document.getElementById("modal-ai-loading");
+      document.getElementById("loading-ai-desc").innerText = `AI sedang menganalisis statistik pertandingan dan merangkai naskah bergaya ${tone}...`;
+      modalLoading.classList.remove("hidden");
+      modalLoading.classList.add("flex");
+
+      // Berikan jeda estetis sinematik (1,5 detik) agar animasi loading terlihat jelas
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      try {
+        const res = await fetch(`${API_URL}/stories/generate`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            match_id: matchId,
+            narrative_style: tone,
+            language: "Indonesia"
+          })
+        });
+        const storyData = await res.json();
+        if (!res.ok) throw new Error(storyData.detail || "Gagal membuat cerita");
+
+        showToast("Narasi AI berhasil dibuat dan disimpan!", "success");
+        openStoryModal(storyData);
+      } catch (err) {
+        showToast(err.message, "error");
+      } finally {
+        modalLoading.classList.add("hidden");
+        modalLoading.classList.remove("flex");
+      }
+    }
+
+    async function fetchStories() {
+      const token = localStorage.getItem("kd_token");
+      const grid = document.getElementById("stories-grid");
+
+      try {
+        const res = await fetch(`${API_URL}/stories`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        const stories = await res.json();
+
+        if (stories && stories.length > 0) {
+          grid.innerHTML = stories.map(s => {
+            const dateStr = new Date(s.created_at).toLocaleDateString("id-ID", {
+              day: "numeric", month: "long", year: "numeric"
+            });
+            return `
+              <div class="fifa-card rounded-2xl p-6 border border-white/10 flex flex-col justify-between hover:border-primary/40 transition">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-primary/20 text-primary border border-primary/30">
+                      ${s.narrative_style}
+                    </span>
+                    <span class="text-[11px] text-on-surface-variant font-semibold">${dateStr}</span>
+                  </div>
+                  <h3 class="font-headline text-2xl text-white tracking-wide leading-tight mb-3 line-clamp-2 uppercase">
+                    ${s.title}
+                  </h3>
+                  <p class="text-xs text-on-surface-variant line-clamp-4 leading-relaxed mb-4">
+                    ${s.content}
+                  </p>
+                </div>
+                <div class="pt-3 border-t border-white/10 flex items-center justify-between">
+                  <button onclick='openStoryModalById(${JSON.stringify(s)})' class="px-3.5 py-1.5 bg-primary-container text-slate-950 font-headline text-base tracking-wider uppercase font-bold hover:bg-primary transition">
+                    BACA LENGKAP →
+                  </button>
+                  <button onclick="handleDeleteStory(${s.id})" class="text-on-surface-variant hover:text-rose-400 p-1" title="Hapus Cerita">
+                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                  </button>
+                </div>
+              </div>
+            `;
+          }).join("");
+        } else {
+          grid.innerHTML = `<div class="col-span-3 text-center py-12 fifa-card rounded-2xl p-8 border border-white/10"><p class="text-on-surface-variant text-sm italic">Belum ada cerita yang di-generate. Buat cerita pertama Anda di tab Home atau Custom Player!</p></div>`;
+        }
+      } catch (err) {
+        grid.innerHTML = `<p class="text-rose-400 text-xs">Gagal memuat arsip cerita.</p>`;
+      }
+    }
+
+    async function handleDeleteStory(storyId) {
+      if (!confirm("Hapus cerita ini dari arsip?")) return;
+      const token = localStorage.getItem("kd_token");
+      try {
+        const res = await fetch(`${API_URL}/stories/${storyId}`, {
+          method: "DELETE",
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error("Gagal menghapus cerita");
+        showToast("Cerita berhasil dihapus dari histori.", "info");
+        fetchStories();
+      } catch (err) {
+        showToast(err.message, "error");
+      }
+    }
+
+    // =========================================================================
+    // MODAL DIALOGS
+    // =========================================================================
+    function openStoryModal(story) {
+      currentModalStory = story;
+      document.getElementById("modal-story-title").innerText = story.title;
+      document.getElementById("modal-story-style-badge").innerText = `${story.narrative_style} • ${story.language}`;
+      document.getElementById("modal-story-date").innerText = new Date(story.created_at).toLocaleDateString("id-ID", {
+        day: "numeric", month: "long", year: "numeric"
+      });
+      document.getElementById("modal-story-content").innerText = story.content;
+      document.getElementById("modal-story-reader").classList.remove("hidden");
+      document.getElementById("modal-story-reader").classList.add("flex");
+    }
+
+    function openStoryModalById(story) {
+      openStoryModal(story);
+    }
+
+    function closeStoryModal() {
+      document.getElementById("modal-story-reader").classList.add("hidden");
+      document.getElementById("modal-story-reader").classList.remove("flex");
+    }
+
+    function shareCurrentStory() {
+      if (!currentModalStory) return;
+      const shareUrl = `${window.location.origin}/#story-${currentModalStory.id}`;
+      navigator.clipboard.writeText(shareUrl);
+      showToast("Tautan cerita berhasil disalin ke clipboard!", "success");
+    }
+
+    function showRoadmapModal(title) {
+      document.getElementById("modal-roadmap-title").innerText = title;
+      document.getElementById("modal-roadmap").classList.remove("hidden");
+      document.getElementById("modal-roadmap").classList.add("flex");
+    }
+
+    function closeRoadmapModal() {
+      document.getElementById("modal-roadmap").classList.add("hidden");
+      document.getElementById("modal-roadmap").classList.remove("flex");
+    }
+
+    function showToast(message, type = "info") {
+      const container = document.getElementById("toast-container");
+      const toast = document.createElement("div");
+      
+      const colors = {
+        success: "bg-surface-container-high border-secondary/50 text-secondary",
+        error: "bg-surface-container-high border-rose-500/50 text-rose-300",
+        warning: "bg-surface-container-high border-primary/50 text-primary",
+        info: "bg-surface-container-high border-white/20 text-white"
+      };
+
+      toast.className = `pointer-events-auto px-4 py-2.5 rounded-lg border text-xs font-bold uppercase tracking-wider shadow-xl backdrop-blur-md transition-all duration-300 transform translate-y-2 opacity-0 flex items-center gap-2 ${colors[type] || colors.info}`;
+      toast.innerHTML = `<span>${message}</span>`;
+      
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.classList.remove("translate-y-2", "opacity-0");
+      }, 10);
+
+      setTimeout(() => {
+        toast.classList.add("opacity-0", "translate-y-2");
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
