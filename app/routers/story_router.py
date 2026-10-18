@@ -8,9 +8,10 @@ from app.schemas import StoryGenerateRequest, StoryResponse
 from app.security import get_current_user
 from app.services.ai_story_service import generate_match_story_narrative
 
-router = APIRouter(prefix="/api/stories", tags=["Story & AI Narrative (UC-020, UC-022, UC-023)"])
+router = APIRouter(prefix="/api/stories", tags=["Stories"])
 
 @router.post("/generate", response_model=StoryResponse, status_code=status.HTTP_201_CREATED)
+
 def generate_match_story(
     req: StoryGenerateRequest,
     current_user: User = Depends(get_current_user),

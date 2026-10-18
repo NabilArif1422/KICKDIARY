@@ -2,13 +2,10 @@ from pydantic import BaseModel, EmailStr, Field
 from typing import Optional, List
 from datetime import datetime
 
-# ============================================================================
-# SKEMA PENGGUNA & AUTENTIKASI (UC-001, UC-002, UC-005, UC-006)
-# ============================================================================
-
+# Skema autentikasi dan profil
 class UserRegister(BaseModel):
     email: EmailStr
-    password: str = Field(..., min_length=8, description="Password minimal 8 karakter (sesuai UC-004/NFR-005)")
+    password: str = Field(..., min_length=8)
     full_name: str = Field(..., min_length=2, max_length=100)
     position: Optional[str] = "Striker"
     country: Optional[str] = "Indonesia"
@@ -48,13 +45,10 @@ class UserProfileUpdate(BaseModel):
     bio: Optional[str] = None
     profile_picture: Optional[str] = None
 
-# ============================================================================
-# SKEMA METRIK KUSTOM (UC-018, UC-019)
-# ============================================================================
-
+# Skema metrik kustom
 class CustomMetricCreate(BaseModel):
-    name: str = Field(..., min_length=2, max_length=100, description="Nama metrik, misal: Sprint Cepat")
-    unit: str = Field(default="kali", max_length=30, description="Satuan metrik, misal: kali, %, meter")
+    name: str = Field(..., min_length=2, max_length=100)
+    unit: str = Field(default="kali", max_length=30)
 
 class CustomMetricResponse(BaseModel):
     id: int
@@ -65,13 +59,11 @@ class CustomMetricResponse(BaseModel):
     class Config:
         from_attributes = True
 
-# ============================================================================
-# SKEMA DATA PERTANDINGAN (UC-014, UC-015, UC-016, UC-017)
-# ============================================================================
-
+# Skema data pertandingan
 class MetricValueInput(BaseModel):
     metric_id: int
     value: float
+
 
 class MetricValueResponse(BaseModel):
     metric_id: int
@@ -115,14 +107,12 @@ class MatchResponse(BaseModel):
     class Config:
         from_attributes = True
 
-# ============================================================================
-# SKEMA STORY GENERATION & HISTORI (UC-020, UC-022)
-# ============================================================================
-
+# Skema story dan histori
 class StoryGenerateRequest(BaseModel):
     match_id: int
-    narrative_style: str = Field(default="Dramatis", description="Dramatis / Formal / Santai")
-    language: str = Field(default="Indonesia", description="Indonesia / English")
+    narrative_style: str = "Dramatis"
+    language: str = "Indonesia"
+
 
 class StoryResponse(BaseModel):
     id: int

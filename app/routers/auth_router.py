@@ -7,9 +7,10 @@ from app.models import User, ActivityLog
 from app.schemas import UserRegister, UserLogin, Token, UserProfileResponse, UserProfileUpdate
 from app.security import hash_password, verify_password, create_access_token, get_current_user
 
-router = APIRouter(prefix="/api/auth", tags=["Autentikasi & Profil (UC-001 s.d. UC-006)"])
+router = APIRouter(prefix="/api/auth", tags=["Auth & Profile"])
 
 @router.post("/register", response_model=UserProfileResponse, status_code=status.HTTP_201_CREATED)
+
 def register(user_in: UserRegister, db: Session = Depends(get_db)):
     """
     UC-001 Mendaftarkan Akun.

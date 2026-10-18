@@ -10,13 +10,11 @@ from app.schemas import (
 )
 from app.security import get_current_user
 
-router = APIRouter(prefix="/api", tags=["Mode 2 Custom Player (UC-014, UC-015, UC-018, UC-019)"])
+router = APIRouter(prefix="/api", tags=["Matches & Metrics"])
 
-# ============================================================================
-# METRIK KUSTOM (UC-018, UC-019)
-# ============================================================================
-
+# Metrik kustom
 @router.get("/metrics", response_model=List[CustomMetricResponse])
+
 def get_user_metrics(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
@@ -81,11 +79,9 @@ def delete_custom_metric(
     return {"message": "Metrik kustom berhasil dihapus."}
 
 
-# ============================================================================
-# DATA PERTANDINGAN (UC-014, UC-015)
-# ============================================================================
-
+# Data pertandingan
 @router.post("/matches", response_model=MatchResponse, status_code=status.HTTP_201_CREATED)
+
 def add_match(
     match_in: MatchCreate,
     current_user: User = Depends(get_current_user),
